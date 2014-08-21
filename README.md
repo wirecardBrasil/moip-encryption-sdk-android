@@ -16,77 +16,88 @@ O primeiro passo é iniciar o SDK passando seu Token, Key, Chave Publica RSA e o
 	Moip moip = new Moip(Environment.SANDBOX, TOKEN, KEY, PUBLIC_KEY);
 ```
 
+###2. Utilizando os componentes do Moip
 
-###2. Capturando os dados do pagamento
-
-```java
-    Payment payment = new Payment();
-    payment.setMoipOrderID(moipOrderID);
-    payment.setInstallmentCount(1);
-
-    CreditCard creditCard = new CreditCard();
-    creditCard.setExpirationMonth(1);
-    creditCard.setExpirationYear(17);
-
-
-    try {
-        KeyManager.clearInstance();
-        KeyManager.newInstance(PUBLIC_KEY);
-        creditCard.setNumber(KeyManager.getInstance().encrypt("4340948565343648"));
-        creditCard.setCvc(KeyManager.getInstance().encrypt("123"));
-
-    } catch (NoSuchPaddingException e) {
-        e.printStackTrace();
-    } catch (NoSuchAlgorithmException e) {
-        e.printStackTrace();
-    } catch (InvalidKeySpecException e) {
-        e.printStackTrace();
-    } catch (IllegalBlockSizeException e) {
-        e.printStackTrace();
-    } catch (BadPaddingException e) {
-        e.printStackTrace();
-    } catch (InvalidKeyException e) {
-        e.printStackTrace();
-    } catch (UnsupportedEncodingException e) {
-        e.printStackTrace();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-
-    Holder holder = new Holder();
-    holder.setBirthdate("1990-7-24");
-    holder.setFullname("Hip Bot");
-
-    //Tax Document
-    TaxDocument taxDocument = new TaxDocument();
-    taxDocument.setNumber("40328944011");
-    taxDocument.setType(DocumentType.CPF.getDescription());
-
-    Phone phone = new Phone();
-    phone.setCountryCode(55);
-    phone.setAreaCode(11);
-    phone.setNumber("955555555");
-
-
-    holder.setTaxDocument(taxDocument);
-    holder.setPhone(phone);
-    creditCard.setHolder(holder);
-
-    FundingInstrument fundingInstrument = new FundingInstrument();
-    fundingInstrument.setCreditCard(creditCard);
-    fundingInstrument.setMethod("CREDIT_CARD");
-
-    payment.setFundingInstrument(fundingInstrument);
+Para adicionar os componentes de cartão de crédito e cvv do Moip a seu aplicativo, crie os seguintes campos em sua interface.
+```xml
+	<com.moip.sdk.lib.components.MoipCreditCardEditText
+            android:id="@+id/moip_credit_card_edit_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:numeric="integer"
+            android:maxLength="19"
+            android:digits="1234567890 "
+            android:hint="Credit Card"/>
+            
+        <com.moip.sdk.lib.components.MoipCVCEditText
+            android:id="@+id/moip_cvc_edit_text"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:numeric="integer"
+            android:maxLength="4"
+            android:hint="CVV" />
 ```
 
-###3. Criando o pagmento (PAYMENT)
+Declaração dos componentes
+
+```java
+
+	private MoipCreditCardEditText moipCC;
+	private MoipCVCEditText moipCVC;
+```
+
+Inicializando os componentes
+
+```java
+
+        moipCVC = (MoipCVCEditText) findViewById(R.id.moip_cvc_edit_text);
+        moipCC = (MoipCreditCardEditText) findViewById(R.id.moip_credit_card_edit_text);
+```
+
+
+###3. Capturando os dados do pagamento
+
+```java
+	Payment payment = new Payment();
+	payment.setMoipOrderID(moipOrderID);
+	payment.setInstallmentCount(1);
+
+	CreditCard creditCard = new CreditCard();
+	creditCard.setExpirationMonth(1);
+	creditCard.setExpirationYear(17);
+	creditCard.setNumber(KeyManager.getInstance().encrypt("4340948565343648"));
+        creditCard.setCvc(KeyManager.getInstance().encrypt("123"));
+
+	Holder holder = new Holder();
+	holder.setBirthdate("1990-7-24");
+	holder.setFullname("Hip Bot");
+
+	TaxDocument taxDocument = new TaxDocument();
+	taxDocument.setNumber("40328944011");
+	taxDocument.setType(DocumentType.CPF.getDescription());
+
+	Phone phone = new Phone();
+	phone.setCountryCode(55);
+	phone.setAreaCode(11);
+	phone.setNumber("955555555");
+
+	holder.setTaxDocument(taxDocument);
+	holder.setPhone(phone);
+	creditCard.setHolder(holder);
+
+	FundingInstrument fundingInstrument = new FundingInstrument();
+	fundingInstrument.setCreditCard(creditCard);
+	fundingInstrument.setMethod("CREDIT_CARD");
+
+	payment.setFundingInstrument(fundingInstrument);
+```
+
+###4. Criando o pagmento (PAYMENT)
 
 Após o preenchimento do formulário de pagamento, você já pode enviar os dados para o Moip efetuar a transação.
 
 ```java   
 
-	Moip moip = new Moip(Environment.SANDBOX, TOKEN, KEY, PUBLIC_KEY);
-	
 	moip.createPayment(payment, new MoipCallback<Payment>() {
         	@Override
                 public void success(Payment payment) {
