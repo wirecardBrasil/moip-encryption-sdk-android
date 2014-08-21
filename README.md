@@ -93,7 +93,7 @@ Inicializando os componentes
 	payment.setFundingInstrument(fundingInstrument);
 ```
 
-###4. Criando o pagmento (PAYMENT)
+###4. Criando o pagamento (PAYMENT)
 
 Após o preenchimento do formulário de pagamento, você já pode enviar os dados para o Moip efetuar a transação.
 
