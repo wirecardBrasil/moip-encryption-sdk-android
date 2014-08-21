@@ -12,14 +12,14 @@ Veja abaixo o tutorial passo-a-passo como integrar com o SDK para Android.
 
 O primeiro passo é iniciar o SDK passando seu Token, Key, Chave Publica RSA e o endpoint para criação da order do seu ecommerce.
 
-```javascript
+```java
 	Moip moip = new Moip(Environment.SANDBOX, TOKEN, KEY, PUBLIC_KEY);
 ```
 
 
 ###2. Capturando os dados do pagamento
 
-```javascript
+```java
     Payment payment = new Payment();
     payment.setMoipOrderID(moipOrderID);
     payment.setInstallmentCount(1);
@@ -83,23 +83,19 @@ O primeiro passo é iniciar o SDK passando seu Token, Key, Chave Publica RSA e o
 
 Após o preenchimento do formulário de pagamento, você já pode enviar os dados para o Moip efetuar a transação.
 
-```javascript   
+```java   
 
-    try {
-        moip.submitPayment(lessDummyPayment(createOrder()), new MoIPCallback() {
-            @Override
-            public void success(final Payment payment) {
+	Moip moip = new Moip(Environment.SANDBOX, TOKEN, KEY, PUBLIC_KEY);
+	
+	moip.createPayment(payment, new MoipCallback<Payment>() {
+        	@Override
+                public void success(Payment payment) {
+			//Lógica caso o pagamento tenha sido realizado com sucesso
+                }
 
-                assertNotNull(payment.getId());
-                assertEquals(payment.getStatus(), PaymentStatus.IN_ANALYSIS);
-            }
-
-            @Override
-            public void failure(final List<MoipError> moipErrorList) {
-                assertFalse(true);
-            }
-        });
-    } catch (MoIPSDKException e) {
-        e.printStackTrace();
-    }
+                @Override
+                public void failure(List<MoipError> moipErrorList) {
+			//Lógica caso haja algum erro ao criar o pagamento
+                }
+            });
 ```
