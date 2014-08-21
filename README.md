@@ -24,17 +24,12 @@ Para adicionar os componentes de cartão de crédito e cvv do Moip a seu aplicat
             android:id="@+id/moip_credit_card_edit_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:numeric="integer"
-            android:maxLength="19"
-            android:digits="1234567890 "
             android:hint="Credit Card"/>
             
         <com.moip.sdk.lib.components.MoipCVCEditText
             android:id="@+id/moip_cvc_edit_text"
             android:layout_width="96dp"
             android:layout_height="wrap_content"
-            android:numeric="integer"
-            android:maxLength="4"
             android:hint="CVV" />
 ```
 
