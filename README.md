@@ -66,7 +66,8 @@ Inicializando os componentes
 	creditCard.setExpirationMonth(1);
 	creditCard.setExpirationYear(17);
 	creditCard.setNumber(moipCC.getText().toString());
-        creditCard.setCvc(moipCVC.getText().toString());
+	creditCard.setCvc(moipCVC.getText().toString());
+        creditCard.setBrand(moipCC.whatBrand());
 
 	Holder holder = new Holder();
 	holder.setBirthdate("1990-7-24");
