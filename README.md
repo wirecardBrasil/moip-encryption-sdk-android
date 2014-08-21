@@ -65,8 +65,8 @@ Inicializando os componentes
 	CreditCard creditCard = new CreditCard();
 	creditCard.setExpirationMonth(1);
 	creditCard.setExpirationYear(17);
-	creditCard.setNumber(KeyManager.getInstance().encrypt("4340948565343648"));
-        creditCard.setCvc(KeyManager.getInstance().encrypt("123"));
+	creditCard.setNumber(moipCC.getText().toString());
+        creditCard.setCvc(moipCVC.getText().toString());
 
 	Holder holder = new Holder();
 	holder.setBirthdate("1990-7-24");
