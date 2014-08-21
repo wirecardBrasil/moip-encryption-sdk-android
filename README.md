@@ -10,7 +10,7 @@ Veja abaixo o tutorial passo-a-passo como integrar com o SDK para Android.
 
 ###1. Iniciando o SDK
 
-O primeiro passo é iniciar o SDK passando seu Token, Key, Chave Publica RSA e o endpoint para criação da order do seu ecommerce.
+O primeiro passo é iniciar o SDK passando seu Token, Key, Chave Publica RSA e o ambiente que o pagamento será criado.
 
 ```java
 	Moip moip = new Moip(Environment.SANDBOX, TOKEN, KEY, PUBLIC_KEY);
