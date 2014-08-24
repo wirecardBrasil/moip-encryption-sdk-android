@@ -1,9 +1,20 @@
 ---
-title: Mobile SDK Android
-anchor: mobile-sdk-android
-category: business
-isChild: true
+# Mobile SDK Android (Beta)
+
+Com o MoipSDK você pode receber pagamentos no seu aplicativo sem se preocupar com criptografia e de uma maneira fácil e simples.
+
 ---
+
+##Release Notes
+
+###### Versão 1.0 Beta 2 - 22/08/2014
+* Ajustes para criação do pagamento com cartão criptografado
+
+###### Versão 1.0 Beta 1 - 21/08/2014
+* Melhorias nos componentes de cartão de crédito e cvc do Moip
+
+#Como usar o SDK Android
+
 Estamos trabalhando para disponibilizar o quanto antes o **SDK Android sample**, mas você já pode se familiarizar com sua estrutura.
 
 Veja abaixo o tutorial passo-a-passo como integrar com o SDK para Android.
