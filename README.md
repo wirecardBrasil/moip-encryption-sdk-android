@@ -7,6 +7,9 @@ Com o MoipSDK você pode receber pagamentos no seu aplicativo sem se preocupar c
 
 ##Release Notes
 
+###### Versão 1.0 Beta 3 - 24/08/2014
+* Ajustes na criptografia
+
 ###### Versão 1.0 Beta 2 - 22/08/2014
 * Ajustes para criação do pagamento com cartão criptografado
 
