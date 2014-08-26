@@ -10,7 +10,7 @@ https://moip.com.br/moip-apps/
 
 ##Release Notes
 
-###### Versão 1.0 Beta 4 - 24/08/2014
+###### Versão 1.0 Beta 4 - 26/08/2014
 * Adicionado a versão JAR da SDK
 * Adicionado dependencias da SDK
 
