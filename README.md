@@ -3,9 +3,16 @@
 
 Com o MoipSDK você pode receber pagamentos no seu aplicativo sem se preocupar com criptografia e de uma maneira fácil e simples.
 
+Antes iniciar a integração de seu aplicativo com o SDK Mobile Android, entre no site do Moip. Lá você encontrará os primeiros passos para criar sua conta Moip.
+https://moip.com.br/moip-apps/
+
 ---
 
 ##Release Notes
+
+###### Versão 1.0 Beta 4 - 24/08/2014
+* Adicionado a versão JAR da SDK
+* Adicionado dependencias da SDK
 
 ###### Versão 1.0 Beta 3 - 24/08/2014
 * Ajustes na criptografia
@@ -16,21 +23,33 @@ Com o MoipSDK você pode receber pagamentos no seu aplicativo sem se preocupar c
 ###### Versão 1.0 Beta 1 - 21/08/2014
 * Melhorias nos componentes de cartão de crédito e cvc do Moip
 
-#Como usar o SDK Android
+#Como usar a SDK Android
 
 Estamos trabalhando para disponibilizar o quanto antes o **SDK Android sample**, mas você já pode se familiarizar com sua estrutura.
 
-Veja abaixo o tutorial passo-a-passo como integrar com o SDK para Android.
+Veja abaixo o tutorial passo-a-passo como integrar com a SDK para Android.
 
-###1. Iniciando o SDK
+###1. Dependências da SDK
 
-O primeiro passo é iniciar o SDK passando seu Token, Key, Chave Publica RSA e o ambiente que o pagamento será criado.
+Para utilizar a SDK do Moip, antes é preciso adicionar as dependencias dela. Há um zip com as depêndencias neste repositório.
+Caso utilize o gradle adicione apenas as seguintes linhas.
+
+```
+    compile 'com.madgag.spongycastle:pkix:1.51.0.0'
+    compile 'com.netflix.feign:feign-gson:6.1.2'
+    compile 'commons-codec:commons-codec:1.9'
+```
+
+
+###2. Iniciando a SDK
+
+O primeiro passo é iniciar a SDK passando seu Token, Key, Chave Publica RSA e o ambiente que o pagamento será criado.
 
 ```java
 	Moip moip = new Moip(Environment.SANDBOX, TOKEN, KEY, PUBLIC_KEY);
 ```
 
-###2. Utilizando os componentes do Moip
+###3. Utilizando os componentes do Moip
 
 Para adicionar os componentes de cartão de crédito e cvv do Moip a seu aplicativo, crie os seguintes campos em sua interface.
 ```xml
@@ -64,7 +83,7 @@ Inicializando os componentes
 ```
 
 
-###3. Capturando os dados do pagamento
+###4. Capturando os dados do pagamento
 
 ```java
 	Payment payment = new Payment();
@@ -102,7 +121,7 @@ Inicializando os componentes
 	payment.setFundingInstrument(fundingInstrument);
 ```
 
-###4. Criando o pagamento (PAYMENT)
+###5. Criando o pagamento (PAYMENT)
 
 Após o preenchimento do formulário de pagamento, você já pode enviar os dados para o Moip efetuar a transação.
 
