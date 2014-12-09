@@ -10,6 +10,10 @@ https://moip.com.br/moip-apps/
 
 ##Release Notes
 
+
+###### Versão 1.0 Beta 5 - 03/09/2014
+* Corrigido um bug na criptografia nos dados do cartão
+
 ###### Versão 1.0 Beta 4 - 26/08/2014
 * Adicionado a versão JAR da SDK
 * Adicionado dependencias da SDK
