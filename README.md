@@ -10,6 +10,9 @@ https://moip.com.br/moip-apps/
 
 ##Release Notes
 
+###### Versão 1.0 Beta 6 - 09/12/2014
+* Adicionado a criação de order e order light
+* Diversas atualizações
 
 ###### Versão 1.0 Beta 5 - 03/09/2014
 * Corrigido um bug na criptografia nos dados do cartão
@@ -86,8 +89,71 @@ Inicializando os componentes
         moipCC = (MoipCreditCardEditText) findViewById(R.id.moip_credit_card_edit_text);
 ```
 
+###4. Capturando os dados do pedido (ORDER)
 
-###4. Capturando os dados do pagamento
+```java
+	Order order = new Order();
+        order.setOwnId("42");
+
+        Amount amount = new Amount();
+        amount.setCurrency(Currency.BRL);
+        order.setAmount(amount);
+
+        final Item item = new Item();
+        item.setDetail("Uma linda bicicleta");
+        item.setPrice(1900);
+        item.setProduct("Uma pá bonita");
+        item.setQuantity(1);
+
+        order.setItems(new ArrayList<Item>() {{
+            add(item);
+        }});
+
+        Customer customer = new Customer();
+        customer.setOwnId("315");
+        customer.setFullname("Jose Silva");
+        customer.setEmail("josedasilva@email.com");
+        customer.setBirthDate("1988-12-30");
+
+        TaxDocument taxDocument = new TaxDocument();
+        taxDocument.setType("CPF");
+        taxDocument.setNumber("22222222222");
+        customer.setTaxDocument(taxDocument);
+
+        Phone phone = new Phone();
+        phone.setNumber("66778899");
+        phone.setAreaCode(11);
+        phone.setCountryCode(55);
+        customer.setPhone(phone);
+
+        final Address address = new Address();
+        address.setType("BILLING");
+        address.setStreet("Avenida Faria Lima");
+        address.setStreetNumber("2927");
+        address.setComplement("8");
+        address.setDistrict("Itaim");
+        address.setCity("São Paulo");
+        address.setState("SP");
+        address.setCountry("BRA");
+        address.setZipCode("01234000");
+        customer.setAddresses(new ArrayList<Address>() {{
+            add(address);
+        }});
+
+
+        order.setCustomer(customer);
+```
+
+###5. Criando o pedido (ORDER)
+
+Após o preenchimento do formulário de pedido, lembre-se que o pedido deve ser enviado para seu servidor e criado lá antes de ser enviado pelo seu servidor para o Moip.
+
+```java
+	HttpPost httpPost = new HttpPost("URL DO SEU ENDPOINT");
+        HttpResponse httpResponse = moip.createMyOrder(order, httpPost);
+```
+
+###6. Capturando os dados do pagamento (PAYMENT)
 
 ```java
 	Payment payment = new Payment();
@@ -125,7 +191,7 @@ Inicializando os componentes
 	payment.setFundingInstrument(fundingInstrument);
 ```
 
-###5. Criando o pagamento (PAYMENT)
+###7. Criando o pagamento (PAYMENT)
 
 Após o preenchimento do formulário de pagamento, você já pode enviar os dados para o Moip efetuar a transação.
 
