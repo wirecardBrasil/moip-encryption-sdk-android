@@ -191,37 +191,7 @@ Inicializando os componentes
 
 ###6 - Criando o Order
 
-Após o preenchimento do formulário de pedido, lembre-se que o pedido deve ser enviado para seu servidor e criado lá antes de ser enviado pelo seu servidor para o Moip, caso este não seja o cenário; você pode cria-lo diretamente no Moip. Você pode criar o Order usando o BasicAuth ou o Oauth, isso vai depender de como você se autenticou na sdk.
-
-#####BasicAuth
-```java
-	 Moip.createOrder(order, new MoipCallback<Order>() {
-            @Override
-            public void success(Order order) {
-
-            }
-
-            @Override
-            public void failure(List<MoipError> moipErrorList) {
-
-            }
-        });
-```
-
-#####Oauth
-```java
-	 Moip.createOrderOauth(order, new MoipCallback<Order>() {
-            @Override
-            public void success(Order order) {
-
-            }
-
-            @Override
-            public void failure(List<MoipError> moipErrorList) {
-
-            }
-        });
-```
+Após o preenchimento do formulário de pedido, lembre-se que o pedido deve ser enviado para seu servidor e criado lá antes de ser enviado pelo seu servidor para o Moip.
 
 ###7 - Capturando os dados do payment
 
