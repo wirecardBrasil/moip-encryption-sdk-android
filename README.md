@@ -136,7 +136,7 @@ Inicializando os componentes
         moipCC = (MoipCreditCardEditText) findViewById(R.id.moip_credit_card_edit_text);
 ```
 
-###4. Capturando os dados do Order
+###5 - Capturando os dados do Order
 
 
 ```java
@@ -189,7 +189,7 @@ Inicializando os componentes
      	order.setShippingAddress(shippingAddress);
 ```
 
-###5 - Criando o Order
+###6 - Criando o Order
 
 Após o preenchimento do formulário de pedido, lembre-se que o pedido deve ser enviado para seu servidor e criado lá antes de ser enviado pelo seu servidor para o Moip, caso este não seja o cenário; você pode cria-lo diretamente no Moip. Você pode criar o Order usando o BasicAuth ou o Oauth, isso vai depender de como você se autenticou na sdk.
 
@@ -223,7 +223,7 @@ Após o preenchimento do formulário de pedido, lembre-se que o pedido deve ser 
         });
 ```
 
-###6. Capturando os dados do payment
+###7 - Capturando os dados do payment
 
 ```java
         Payment payment = new Payment();
@@ -275,7 +275,7 @@ Após o preenchimento do formulário de pedido, lembre-se que o pedido deve ser 
 ```
 
 
-###7. Criando o Payment
+###8 - Criando o Payment
 
 Após o preenchimento do formulário de pagamento, você já pode enviar os dados para o Moip efetuar a transação.
 
