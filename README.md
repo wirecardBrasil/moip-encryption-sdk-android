@@ -121,13 +121,13 @@ Após o login será necessário permitir que sua aplicação possa criar pagamen
 
 Para adicionar os componentes de cartão de crédito e cvv do Moip a seu aplicativo, crie os seguintes campos em sua interface.
 ```xml
-	<com.moip.sdk.lib.components.MoipCreditCardEditText
+	<br.com.moip.sdk.components.MoipCreditCardEditText
             android:id="@+id/moip_credit_card_edit_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="Credit Card"/>
             
-        <com.moip.sdk.lib.components.MoipCVCEditText
+        <br.com.moip.sdk.components.MoipCVCEditText
             android:id="@+id/moip_cvc_edit_text"
             android:layout_width="96dp"
             android:layout_height="wrap_content"
