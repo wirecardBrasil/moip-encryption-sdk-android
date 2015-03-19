@@ -10,6 +10,9 @@ https://moip.com.br/moip-apps/
 
 ##Release Notes
 
+###### Versão 1.0 Beta 8 -26/02/2015
+* Correção na chamada da chave pública
+
 ###### Versão 1.0 Beta 7 - 04/02/2015
 * Reescrita as assinaturas dos métodos
 * Adicionado o login oauth
@@ -73,7 +76,18 @@ A autenticação na SDK pode variar dependendo do tipo de sua aplicação e/ou n
 ```java
 	Moip.BasicAuth("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB");
 ```
-
+Adicionando a chave pública
+```java
+	Moip.PublicKey("-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoBttaXwRoI1Fbcond5mS
+7QOb7X2lykY5hvvDeLJelvFhpeLnS4YDwkrnziM3W00UNH1yiSDU+3JhfHu5G387
+O6uN9rIHXvL+TRzkVfa5iIjG+ap2N0/toPzy5ekpgxBicjtyPHEgoU6dRzdszEF4
+ItimGk5ACx/lMOvctncS5j3uWBaTPwyn0hshmtDwClf6dEZgQvm/dNaIkxHKV+9j
+Mn3ZfK/liT8A3xwaVvRzzuxf09xJTXrAd9v5VQbeWGxwFcW05oJulSFjmJA9Hcmb
+DYHJT+sG2mlZDEruCGAzCVubJwGY1aRlcs9AQc1jIm/l8JwH7le2kpk3QoX+gz0w
+WwIDAQAB
+-----END PUBLIC KEY-----");
+```
 #####3.2 Autenticação Oauth 
 
 Faça uma chamada para a activity de login.
@@ -107,13 +121,13 @@ Após o login será necessário permitir que sua aplicação possa criar pagamen
 
 Para adicionar os componentes de cartão de crédito e cvv do Moip a seu aplicativo, crie os seguintes campos em sua interface.
 ```xml
-	<com.moip.sdk.lib.components.MoipCreditCardEditText
+	<br.com.moip.sdk.components.MoipCreditCardEditText
             android:id="@+id/moip_credit_card_edit_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="Credit Card"/>
             
-        <com.moip.sdk.lib.components.MoipCVCEditText
+        <br.com.moip.sdk.components.MoipCVCEditText
             android:id="@+id/moip_cvc_edit_text"
             android:layout_width="96dp"
             android:layout_height="wrap_content"
