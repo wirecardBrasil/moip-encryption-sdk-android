@@ -10,6 +10,9 @@ https://moip.com.br/moip-apps/
 
 ##Release Notes
 
+###### Versão 1.0 Beta 10 -17/04/2015
+* Alterado diversos pontos do SDK. Adicionada a nova criptografia de cartão.
+
 ###### Versão 1.0 Beta 9 -19/03/2015
 * Atualização na chamada ao criar um order
 
@@ -55,247 +58,62 @@ Caso utilize o gradle adicione apenas as seguintes linhas.
 
 ```
     compile 'com.madgag.spongycastle:pkix:1.51.0.0'
-    compile 'com.netflix.feign:feign-gson:6.1.2'
-    compile 'commons-codec:commons-codec:1.9'
 ```
 
 
-###2 - Iniciando a SDK
+###2 - Criando o Cartão de Crédito
 
-O primeiro passo é iniciar a SDK passando seu Token, Key, Chave Publica RSA e o ambiente que o pagamento será criado.
+##### 2.1 - Chave pública
+```java
+	 final String PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\n"+
+        "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoBttaXwRoI1Fbcond5mS\n"+
+        "7QOb7X2lykY5hvvDeLJelvFhpeLnS4YDwkrnziM3W00UNH1yiSDU+3JhfHu5G387\n"+
+        "O6uN9rIHXvL+TRzkVfa5iIjG+ap2N0/toPzy5ekpgxBicjtyPHEgoU6dRzdszEF4\n"+
+        "ItimGk5ACx/lMOvctncS5j3uWBaTPwyn0hshmtDwClf6dEZgQvm/dNaIkxHKV+9j\n"+
+        "Mn3ZfK/liT8A3xwaVvRzzuxf09xJTXrAd9v5VQbeWGxwFcW05oJulSFjmJA9Hcmb\n"+
+        "DYHJT+sG2mlZDEruCGAzCVubJwGY1aRlcs9AQc1jIm/l8JwH7le2kpk3QoX+gz0w\n"+
+        "WwIDAQAB\n"+
+        "-----END PUBLIC KEY-----";
+```
+
+##### 2.2 - Objeto CreditCard
+```java
+	CreditCard creditCard = new CreditCard();
+        creditCard.setCvc("123");
+        creditCard.setNumber("4340948565343648");
+        creditCard.setExpirationMonth("12");
+        creditCard.setExpirationYear("2030");
+        creditCard.setPublicKey(PUBLIC_KEY);
+```
+
+###4 - Criptografando o cartão
 
 ```java
-	Moip.initialize(this);
- 	Moip.Environment(Environment.SANDBOX);
- 	Moip.AppInfo("APP-9ZYARRPIM0Y5", "plwhy5518vwhoo52tyvg6irc67en7ct");
-```
-
-###3 - Autenticando-se na SDK
-
-A autenticação na SDK pode variar dependendo do tipo de sua aplicação e/ou negócio.
-
-#####3.1 - Autenticação Basic Auth
-
-```java
-	Moip.BasicAuth("01010101010101010101010101010101","ABABABABABABABABABABABABABABABABABABABAB");
-```
-Adicionando a chave pública
-```java
-	Moip.PublicKey("-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoBttaXwRoI1Fbcond5mS
-7QOb7X2lykY5hvvDeLJelvFhpeLnS4YDwkrnziM3W00UNH1yiSDU+3JhfHu5G387
-O6uN9rIHXvL+TRzkVfa5iIjG+ap2N0/toPzy5ekpgxBicjtyPHEgoU6dRzdszEF4
-ItimGk5ACx/lMOvctncS5j3uWBaTPwyn0hshmtDwClf6dEZgQvm/dNaIkxHKV+9j
-Mn3ZfK/liT8A3xwaVvRzzuxf09xJTXrAd9v5VQbeWGxwFcW05oJulSFjmJA9Hcmb
-DYHJT+sG2mlZDEruCGAzCVubJwGY1aRlcs9AQc1jIm/l8JwH7le2kpk3QoX+gz0w
-WwIDAQAB
------END PUBLIC KEY-----");
-```
-#####3.2 Autenticação Oauth 
-
-Faça uma chamada para a activity de login.
-
-```java
- Intent i = new Intent(this, MoipOAuthLoginActivity.class);
- startActivityForResult(i, MoipCode.OAUTH);
-```
-
-Para receber a  resposta do login em sua aplicação, sobrescreva o método onActivityResult da seguinte forma.
-
-<img src="http://cdn2.hubspot.net/hub/253924/file-2448838267-png/Documentation/login_screen_mpos.png"height="400" />
-
-Após o login será necessário permitir que sua aplicação possa criar pagamentos na conta Moip do vendedor.
-
-<img src="http://cdn2.hubspot.net/hub/253924/file-2446806435-png/Documentation/login_screen_mpos_2.png"height="400" />
-
-```java
- @Override
- protected void onActivityResult(int requestCode, int resultCode, Intent data) {
- 
-  if (requestCode == MoipCode.OAUTH) {
-   if (resultCode == MoipCode.SUCCESS) {
-      //Em caso de sucesso, você pode prosseguir para a tela de venda
-   } 
-  }
- }
-```
-
-###4 - Utilizando os componentes do Moip
-
-Para adicionar os componentes de cartão de crédito e cvv do Moip a seu aplicativo, crie os seguintes campos em sua interface.
-```xml
-	<br.com.moip.sdk.components.MoipCreditCardEditText
-            android:id="@+id/moip_credit_card_edit_text"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="Credit Card"/>
-            
-        <br.com.moip.sdk.components.MoipCVCEditText
-            android:id="@+id/moip_cvc_edit_text"
-            android:layout_width="96dp"
-            android:layout_height="wrap_content"
-            android:hint="CVV" />
-```
-
-Declaração dos componentes
-
-```java
-
-	private MoipCreditCardEditText moipCC;
-	private MoipCVCEditText moipCVC;
-```
-
-Inicializando os componentes
-
-```java
-
-        moipCVC = (MoipCVCEditText) findViewById(R.id.moip_cvc_edit_text);
-        moipCC = (MoipCreditCardEditText) findViewById(R.id.moip_credit_card_edit_text);
-```
-
-###5 - Capturando os dados do Order
-
-
-```java
-	Order order = new Order();
-        order.setOwnId("42");
-
-        Amount amount = new Amount();
-        amount.setCurrency(Currency.BRL);
-        order.setAmount(amount);
-
-        final Item item = new Item();
-        item.setDetail("Uma linda bicicleta");
-        item.setPrice(1900);
-        item.setProduct("Bicicleta");
-        item.setQuantity(1);
-
-        order.setItems(new ArrayList<Item>() {{
-            add(item);
-        }});
-
-        Customer customer = new Customer();
-        customer.setOwnId("315");
-        customer.setFullname("Jose Silva");
-        customer.setEmail("josedasilva@email.com");
-        customer.setBirthDate("1988-12-30");
-
-        TaxDocument taxDocument = new TaxDocument();
-        taxDocument.setType("CPF");
-        taxDocument.setNumber("22222222222");
-        customer.setTaxDocument(taxDocument);
-
-        Phone phone = new Phone();
-        phone.setNumber("66778899");
-        phone.setAreaCode(11);
-        phone.setCountryCode(55);
-        customer.setPhone(phone);
-
-        order.setCustomer(customer);
-        
-        ShippingAddress shippingAddress = new ShippingAddress();
-     	shippingAddress.setStreet("Avenida Faria Lima");
-     	shippingAddress.setStreetNumber("2927");
-     	shippingAddress.setComplement("8");
-     	shippingAddress.setDistrict("Itaim");
-     	shippingAddress.setCity("São Paulo");
-     	shippingAddress.setState("SP");
-     	shippingAddress.setCountry("BRA");
-     	shippingAddress.setZipCode("01234000");
-
-     	order.setShippingAddress(shippingAddress);
-```
-
-###6 - Criando o Order
-
-Após o preenchimento do formulário de pedido, lembre-se que o pedido deve ser enviado para seu servidor e de lá ser enviado para o Moip.
-
-```java
-
 	try{
-	  order = Moip.createMyOrder(order, "https://endpointdomeuecommerce.com/pedidos");
-	}catch(IOException e){
+		creditCard.encrypt();
+	}catch(MoipEncryptionException mee){
 	
 	}
 ```
 
-Agora com o order criado no Moip, você pode pegar o id do order que será utilizado no payment.
+#Validações
 
-
-###7 - Capturando os dados do payment
+O SDK Moip contém diversas validações para checar os dados de cartão.
 
 ```java
-        Payment payment = new Payment();
-        payment.setMoipOrderID(order.getId());
-        payment.setInstallmentCount(1);
+	MoipValidator.isValidMonth(MONTH);
+	MoipValidator.isValidYear(YEAR);
+	MoipValidator.isValidCreditCard(CREDIT_CARD_NUMBER);
+	MoipValidator.isValidCVC(CVC_NUMBER);
+```
+O SDK Moip também contém métodos para verificarem a bandeira do cartão.
 
-        CreditCard creditCard = new CreditCard();
-        creditCard.setExpirationMonth(1);
-        creditCard.setExpirationYear(17);
-        creditCard.setNumber(moipCC.getText().toString());
-	creditCard.setCvc(moipCVC.getText().toString());
-
-
-        Holder holder = new Holder();
-        holder.setBirthdate("1990-7-24");
-        holder.setFullname("Hip Bot");
-
-        TaxDocument taxDocument = new TaxDocument();
-        taxDocument.setNumber("40328944011");
-        taxDocument.setType(DocumentType.CPF.getDescription());
-
-        Phone phone = new Phone();
-        phone.setCountryCode(55);
-        phone.setAreaCode(11);
-        phone.setNumber("955555555");
-
-
-        holder.setTaxDocument(taxDocument);
-        holder.setPhone(phone);
-
-        BillingAddress billingAddress = new BillingAddress();
-        billingAddress.setStreet("Avenida Faria Lima");
-        billingAddress.setStreetNumber("2927");
-        billingAddress.setComplement("8");
-        billingAddress.setDistrict("Itaim");
-        billingAddress.setCity("São Paulo");
-        billingAddress.setState("SP");
-        billingAddress.setCountry("BRA");
-        billingAddress.setZipCode("01234000");
-        holder.setBillingAddress(billingAddress);
-
-        creditCard.setHolder(holder);
-
-        FundingInstrument fundingInstrument = new FundingInstrument();
-        fundingInstrument.setCreditCard(creditCard);
-        fundingInstrument.setMethod("CREDIT_CARD");
-
-        payment.setFundingInstrument(fundingInstrument);
+```java
+	CreditCardBrand brand = MoipValidator.verifyBrand(CREDIT_CARD_NUMBER);
 ```
 
+Também é possivel verificar a bandeira do cartão com apenas os 4 primeiros dígitos.
 
-###8 - Criando o Payment
-
-Após o preenchimento do formulário de pagamento, você já pode enviar os dados para o Moip efetuar a transação.
-
-```java   
- Moip.createPayment(payment, new MoipCallback<Payment>() {
-            @Override
-            public void success(final Payment payment) {
-              
-            }
-
-            @Override
-            public void failure(final List<MoipError> moipErrorList) {
-
-            }
-        });
+```java
+	CreditCardBrand brand = MoipValidator.quicklyBrand(CREDIT_CARD_NUMBER);
 ```
-
----
-# FAQ
-
----
-
-###  1- Como consigo um appId e um appSecret?
-Entre em contato conosco pelo email suporte.mobile@moip.com.br
