@@ -10,6 +10,9 @@ https://moip.com.br/moip-apps/
 
 ##Release Notes
 
+###### Versão 1.0 Beta 9 -19/03/2015
+* Atualização na chamada ao criar um order
+
 ###### Versão 1.0 Beta 8 -26/02/2015
 * Correção na chamada da chave pública
 
@@ -205,13 +208,25 @@ Inicializando os componentes
 
 ###6 - Criando o Order
 
-Após o preenchimento do formulário de pedido, lembre-se que o pedido deve ser enviado para seu servidor e criado lá antes de ser enviado pelo seu servidor para o Moip.
+Após o preenchimento do formulário de pedido, lembre-se que o pedido deve ser enviado para seu servidor e de lá ser enviado para o Moip.
+
+```java
+
+	try{
+	  order = Moip.createMyOrder(order, "https://endpointdomeuecommerce.com/pedidos");
+	}catch(IOException e){
+	
+	}
+```
+
+Agora com o order criado no Moip, você pode pegar o id do order que será utilizado no payment.
+
 
 ###7 - Capturando os dados do payment
 
 ```java
         Payment payment = new Payment();
-        payment.setMoipOrderID(moipOrderID);
+        payment.setMoipOrderID(order.getId());
         payment.setInstallmentCount(1);
 
         CreditCard creditCard = new CreditCard();
