@@ -86,7 +86,7 @@ Caso utilize o gradle adicione apenas as seguintes linhas.
         creditCard.setPublicKey(PUBLIC_KEY);
 ```
 
-###4 - Criptografando o cartão
+###3 - Criptografando o cartão
 
 ```java
 	try{
