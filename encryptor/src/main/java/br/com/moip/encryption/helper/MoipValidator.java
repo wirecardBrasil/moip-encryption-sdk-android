@@ -59,7 +59,7 @@ public class MoipValidator {
     }
 
     public static boolean isValidCVC(final String cvc) {
-        if (isNumber(cvc) && Integer.parseInt(cvc) >= 100 && Integer.parseInt(cvc) <= 9999)
+        if (isNumber(cvc) && (cvc.length() == 3 || cvc.length() == 4))
             return true;
         else
             return false;
@@ -69,7 +69,7 @@ public class MoipValidator {
         if (expirationMonth.length() != 1 && expirationMonth.length() != 2)
             return false;
 
-        if(!isNumber(expirationMonth))
+        if (!isNumber(expirationMonth))
             return false;
 
         int month = Integer.parseInt(expirationMonth);
@@ -84,7 +84,7 @@ public class MoipValidator {
         if (expirationYear.length() != 2 && expirationYear.length() != 4)
             return false;
 
-        if(!isNumber(expirationYear))
+        if (!isNumber(expirationYear))
             return false;
 
         int year = Integer.parseInt(expirationYear);
