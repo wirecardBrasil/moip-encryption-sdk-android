@@ -60,7 +60,7 @@ Caso utilize o gradle adicione apenas as seguintes linhas.
     compile 'com.madgag.spongycastle:pkix:1.51.0.0'
 ```
 
-Adicione o arquivo moip-encryption.aar dentro da pasta libs de seu projeto, e em seu build.gradle:
+Adicione o arquivo moip-encryption.aar dentro da pasta libs de seu projeto e em seu build.gradle:
 
 ```
     repositories {
