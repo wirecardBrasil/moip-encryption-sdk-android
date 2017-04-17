@@ -53,13 +53,27 @@ Veja abaixo o tutorial passo-a-passo como integrar com a SDK para Android.
 
 ###1 - Dependências da SDK
 
-Para utilizar a SDK do Moip, antes é preciso adicionar as dependencias dela. Há um zip com as depêndencias neste repositório.
+Para utilizar a SDK do Moip, antes é preciso adicionar as dependencias dela e o jar do moip-encryption. Há um zip com as depêndencias neste repositório.
 Caso utilize o gradle adicione apenas as seguintes linhas.
 
 ```
     compile 'com.madgag.spongycastle:pkix:1.51.0.0'
 ```
 
+Adicione o arquivo moip-encryption.aar dentro da pasta libs de seu projeto e em seu build.gradle:
+
+```
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+```
+E compile o sdk de criptografia:
+
+```
+    compile(name: 'moip-encryption', ext: 'aar')
+```
 
 ###2 - Criando o Cartão de Crédito
 
