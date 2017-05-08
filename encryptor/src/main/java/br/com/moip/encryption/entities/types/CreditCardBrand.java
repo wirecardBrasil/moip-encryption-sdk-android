@@ -9,7 +9,8 @@ public enum CreditCardBrand {
     AMEX("Amex"),
     HIPERCARD("Hipercard"),
     DINERS("Diners"),
-    DISCOVERY("Discovery"),
+    DISCOVER("Discover"),
+    ELO("Elo"),
     JCB("JCB");
     //@formatter:on
 

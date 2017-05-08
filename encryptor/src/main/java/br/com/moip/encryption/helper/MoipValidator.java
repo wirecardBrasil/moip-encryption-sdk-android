@@ -21,8 +21,10 @@ public class MoipValidator {
         return (sum % 10 == 0);
     }
 
-    public static CreditCardBrand verifyBrand(final String ccNumber) {
-        if (ccNumber.matches("^4[0-9]{12}(?:[0-9]{3})?$"))
+    public static CreditCardBrand verifyBrand( String ccNumber) {
+        if (ccNumber.matches("^([6362]{4})([0-9]{12})$"))
+            return CreditCardBrand.ELO;
+        else if (ccNumber.matches("^4[0-9]{12}(?:[0-9]{3})?$"))
             return CreditCardBrand.VISA;
         else if (ccNumber.matches("^5[1-5][0-9]{14}$"))
             return CreditCardBrand.MASTERCARD;
@@ -48,12 +50,32 @@ public class MoipValidator {
         } else if (range == 34 || range == 37) {
             return CreditCardBrand.AMEX;
         } else if (range == 60 || range == 62 || range == 64 || range == 65) {
-            return CreditCardBrand.DISCOVERY;
-        } else if (range == 35) {
-            return CreditCardBrand.JCB;
-        } else if (range == 30 || range == 36 || range == 38 || range == 39) {
-            return CreditCardBrand.DINERS;
+            return CreditCardBrand.DISCOVER;
+        } else if (range == 36 || range == 38) {
+            return  CreditCardBrand.DINERS;
         } else {
+            if (ccNumber.length() < 3)
+                return CreditCardBrand.UNKNOWN;
+
+            range = Integer.valueOf(ccNumber.substring(0, 3));
+            if (range == 301 || range == 305)
+                return CreditCardBrand.DINERS;
+
+                if (ccNumber.length() < 4)
+                return CreditCardBrand.UNKNOWN;
+
+            range = Integer.valueOf(ccNumber.substring(0, 4));
+            if (range == 5067 || range == 4576 || range == 4011)
+                return CreditCardBrand.ELO;
+
+            if (ccNumber.length() < 6)
+                return CreditCardBrand.UNKNOWN;
+
+            range = Integer.valueOf(ccNumber.substring(0, 6));
+            if (range == 636368 || range == 636369 || range == 438935 || range == 504175
+                    || range == 451416 || range == 636297 || range == 506699)
+                return CreditCardBrand.ELO;
+
             return CreditCardBrand.UNKNOWN;
         }
     }

@@ -3,9 +3,8 @@ package br.com.moip.encryption.validator;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.annotation.Config;
+import org.robolectric.RobolectricTestRunner;
 
-import br.com.moip.encryption.RobolectricGradleTestRunner;
 import br.com.moip.encryption.entities.types.CreditCardBrand;
 import br.com.moip.encryption.helper.MoipValidator;
 
@@ -13,8 +12,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
-@Config(emulateSdk = 18)
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(RobolectricTestRunner.class)
 public class MoipValidatorTest {
 
     private static final String VALID_CVC = "123";
@@ -23,7 +21,8 @@ public class MoipValidatorTest {
     private static final String VISA = "4340948565343648";
     private static final String MASTER = "5592653853140092";
     private static final String AMEX = "379222464259053";
-    private static final String DINERS = "30153097415278";
+    private static final String DINERS = "30111122223331";
+    private static final String ELO = "6362979350887844";
     private static final String INVALID_CC = "111111111111111";
 
     @Test
@@ -68,6 +67,7 @@ public class MoipValidatorTest {
         isValidCreditCardNumber(MASTER);
         isValidCreditCardNumber(AMEX);
         isValidCreditCardNumber(DINERS);
+        isValidCreditCardNumber(ELO);
         isInvalidCreditCardNumber(INVALID_CC);
     }
 
@@ -77,12 +77,14 @@ public class MoipValidatorTest {
         isInvalidCVC(INVALID_CVC);
     }
 
+    @Test
     public void verifyBrand() {
         isVisa(VISA);
         isMaster(MASTER);
         isAmex(AMEX);
         isDiners(DINERS);
-        isDiners(INVALID_CC);
+        isElo(ELO);
+        isUnknow(INVALID_CC);
     }
 
     public void isvValidMonth(final String expirationMonth) {
@@ -135,6 +137,16 @@ public class MoipValidatorTest {
     public void isDiners(final String creditCardNumber) {
         assertEquals(CreditCardBrand.DINERS, MoipValidator.verifyBrand(creditCardNumber));
         assertEquals(CreditCardBrand.DINERS, MoipValidator.quicklyBrand(creditCardNumber));
+    }
+
+    public void isElo(final String creditCardNumber) {
+        assertEquals(CreditCardBrand.ELO, MoipValidator.verifyBrand(creditCardNumber));
+        assertEquals(CreditCardBrand.ELO, MoipValidator.quicklyBrand(creditCardNumber));
+    }
+
+    public void isJCB(final String creditCardNumber) {
+        assertEquals(CreditCardBrand.JCB, MoipValidator.verifyBrand(creditCardNumber));
+        assertEquals(CreditCardBrand.JCB, MoipValidator.quicklyBrand(creditCardNumber));
     }
 
     public void isUnknow(final String creditCardNumber) {
