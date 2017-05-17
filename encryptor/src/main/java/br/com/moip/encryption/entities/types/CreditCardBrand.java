@@ -1,5 +1,6 @@
 package br.com.moip.encryption.entities.types;
 
+@Deprecated
 public enum CreditCardBrand {
 
     //@formatter:off
@@ -10,8 +11,7 @@ public enum CreditCardBrand {
     HIPERCARD("Hipercard"),
     DINERS("Diners"),
     DISCOVER("Discover"),
-    ELO("Elo"),
-    JCB("JCB");
+    ELO("Elo");
     //@formatter:on
 
     private String description;

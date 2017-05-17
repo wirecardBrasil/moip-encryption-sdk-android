@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
+import br.com.moip.creditcard.Brands;
 import br.com.moip.encryption.entities.types.CreditCardBrand;
 import br.com.moip.encryption.helper.MoipValidator;
 
@@ -142,11 +143,6 @@ public class MoipValidatorTest {
     public void isElo(final String creditCardNumber) {
         assertEquals(CreditCardBrand.ELO, MoipValidator.verifyBrand(creditCardNumber));
         assertEquals(CreditCardBrand.ELO, MoipValidator.quicklyBrand(creditCardNumber));
-    }
-
-    public void isJCB(final String creditCardNumber) {
-        assertEquals(CreditCardBrand.JCB, MoipValidator.verifyBrand(creditCardNumber));
-        assertEquals(CreditCardBrand.JCB, MoipValidator.quicklyBrand(creditCardNumber));
     }
 
     public void isUnknow(final String creditCardNumber) {
