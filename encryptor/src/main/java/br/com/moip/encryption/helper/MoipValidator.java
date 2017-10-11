@@ -15,10 +15,7 @@ public class MoipValidator {
     }
 
     public static boolean isValidCVC(final String cvc) {
-        if (isNumber(cvc) && (cvc.length() == 3 || cvc.length() == 4))
-            return true;
-        else
-            return false;
+        return (isNumber(cvc) && (cvc.length() == 3 || cvc.length() == 4));
     }
 
     public static boolean isValidMonth(final String expirationMonth) {
@@ -30,10 +27,7 @@ public class MoipValidator {
 
         int month = Integer.parseInt(expirationMonth);
 
-        if (month > 0 && month <= 12)
-            return true;
-        else
-            return false;
+        return (month > 0 && month <= 12);
     }
 
     public static boolean isValidYear(final String expirationYear) {
@@ -56,10 +50,7 @@ public class MoipValidator {
     }
 
     private static boolean isNumber(final String text) {
-        if (text.matches("[0-9]+"))
-            return true;
-        else
-            return false;
+        return (text.matches("[0-9]+"));
     }
 
     @Deprecated
