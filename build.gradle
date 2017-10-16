@@ -2,17 +2,10 @@
 
 buildscript {
     repositories {
-        mavenCentral()
-        maven {
-            url 'https://oss.sonatype.org/content/repositories/snapshots/'
-        }
-        maven {
-            url 'https://github.com/rockerhieu/mvn-repo/raw/master/'
-        }
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.0'
-        classpath 'org.robolectric:robolectric-gradle-plugin:0.14.+'
+        classpath 'com.android.tools.build:gradle:2.3.1'
     }
 }
 

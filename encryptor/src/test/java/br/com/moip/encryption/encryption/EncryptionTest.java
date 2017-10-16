@@ -1,26 +1,21 @@
 package br.com.moip.encryption.encryption;
 
-import android.util.Log;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.annotation.Config;
-import org.spongycastle.jce.provider.BouncyCastleProvider;
+import org.robolectric.RobolectricTestRunner;
+ import org.spongycastle.jce.provider.BouncyCastleProvider;
 
-import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 
-import javax.crypto.NoSuchPaddingException;
 
-import br.com.moip.encryption.RobolectricGradleTestRunner;
 import br.com.moip.encryption.entities.CreditCard;
 import br.com.moip.encryption.exception.MoipEncryptionException;
 
 import static junit.framework.Assert.assertEquals;
 
-@Config(emulateSdk = 18)
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(RobolectricTestRunner.class)
 public class EncryptionTest {
 
     final String PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\n"+
