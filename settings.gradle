@@ -1,1 +1,1 @@
-include ':encryptor'
+include ':encryptor', ':simpleapplication'
